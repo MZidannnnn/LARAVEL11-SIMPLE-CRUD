@@ -20,7 +20,7 @@
                 </div>
                 <div class="card border-0 shadow-sm rounded">
                     <div class="card-body">
-                        <a href="{{ route('products.create') }}" class="btn btn-md btn-success mb3">ADD PRODUCT</a>
+                        <a href="{{ route('products.create') }}" class="btn btn-md btn-success mb-3">ADD PRODUCT</a>
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
@@ -35,8 +35,8 @@
                                 @forelse ($products as $product)
                                     <tr>
                                         <td class="text-center">
-                                            <img src="{{ asset('/storage/products/' . $product->image) }}" class="rounded"
-                                                style="width: 150px">
+                                            <img src="{{ asset('/storage/products/' . $product->image) }}"
+                                                class="rounded" style="width: 150px">
                                         </td>
                                         <td>{{ $product->title }}</td>
                                         <td>{{ 'Rp ' . number_format($product->price, 2, ',', '.') }}</td>
@@ -56,7 +56,7 @@
                                         </td>
                                     </tr>
                                 @empty
-                                    <div class="alert alert-danger">
+                                    <div class="alert alert-danger mt-3">
                                         Data Products belum Tersedia.
                                     </div>
                                 @endforelse
@@ -68,12 +68,9 @@
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
-        < /scri
-        pt >
-            <
-            script src = "https://cdn.jsdelivr.net/npm/sweetalert2@11" >
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         //message with sweetalert
         @if (session('success'))
