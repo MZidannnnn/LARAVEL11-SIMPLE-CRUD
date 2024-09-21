@@ -48,10 +48,10 @@
                                                     class="btn
                                            btn-sm btn-dark">SHOW</a>
                                                 <a href="{{ route('products.edit', $product->id) }}"
-                                                    class="btn btnsm btn-primary">EDIT</a>
+                                                    class="btn btn-sm btn-primary">EDIT</a>
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btndanger">HAPUS</button>
+                                                <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
                                             </form>
                                         </td>
                                     </tr>

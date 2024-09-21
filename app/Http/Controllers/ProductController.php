@@ -22,20 +22,19 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index() : View
+    public function index(): View
     {
         // Get all product
         $products = Product::latest()->paginate(10);
 
         // render view with product
         return view('products.index', compact('products'));
-
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create() : View
+    public function create(): View
     {
         //
         return view('products.create');
@@ -44,7 +43,7 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request) : RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
         //
         // validate form 
@@ -79,7 +78,7 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id) : View
+    public function show(string $id): View
     {
         //
         // get product by id
@@ -92,20 +91,19 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id) : View
+    public function edit(string $id): View
     {
         // get product by id
         $product = Product::findOrFail($id);
 
         // render view with products
         return view('products.edit', compact('product'));
-        
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id) : RedirectResponse
+    public function update(Request $request, string $id): RedirectResponse
     {
         //validate form
         $request->validate([
@@ -121,7 +119,7 @@ class ProductController extends Controller
 
         // check if image is uploaded
         if ($request->hasFile('image')) {
-            
+
             // upload new image
             $image = $request->file('image');
             // $image->storeAs('public/products', $image->hashName());
@@ -129,12 +127,17 @@ class ProductController extends Controller
             $image->storeAs('products', $image->hashName(), 'public');
 
             // delete old image
+            Storage::delete('products' . $product->image, 'public');
+            // Delete old image if it exists
+            // if ($product->image && Storage::exists('products/' . $product->image)) {
+            //     Storage::delete('products/' . $product->image);
+            // }
             // Storage::delete('products'.$product->image, 'public');
-            Storage::delete('products/' . $product->image);
+            // Storage::delete('products/' . $product->image);
             // Delete old image
-        // if ($product->image && Storage::exists('products/' . $product->image)) {
-        //     Storage::delete('products/' . $product->image);
-        // }
+            // if ($product->image && Storage::exists('products/' . $product->image)) {
+            //     Storage::delete('products/' . $product->image);
+            // }
 
 
             // update product with new image
@@ -145,10 +148,8 @@ class ProductController extends Controller
                 'price'         => $request->price,
                 'stock'         => $request->stock
             ]);
-
-            
         } else {
-            
+
             // update product without image
             $product->update([
                 'title'         => $request->title,
@@ -165,8 +166,23 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): RedirectResponse
     {
         //
+        // get product by id.
+        $product = Product::findOrFail($id);
+
+        //  delete image
+        // Storage::delete('products'.$product->image, 'public');
+        // Storage::delete('products/' . $product->image);
+        Storage::disk('public')->delete('products/' . $product->image);
+
+
+
+        // delete product
+        $product->delete();
+
+        // redirect to index
+        return redirect()->route('products.index')->with(['success' => 'Data Berhasi Dihapus']);
     }
 }

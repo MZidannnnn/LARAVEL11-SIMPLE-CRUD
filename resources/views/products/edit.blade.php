@@ -17,16 +17,12 @@ npm/bootstrap@5.3.2/dist/css
             <div class="col-md-12">
                 <div class="card border-0 shadow-sm rounded">
                     <div class="card-body">
-                        <form action="{{ route('products.update', $product->id) }}" method="POST"
-                            enctype="multipart/form-data">
-
+                        <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="form-group mb-3">
                                 <label class="font-weight-bold">IMAGE</label>
-                                <input type="file" class="form-control @error('image') is-invalid
-@enderror"
-                                    name="image">
+                                <input type="file" class="form-control @error('image') is-invalid @enderror" name="image">
 
                                 <!-- error message untuk image -->
                                 @error('image')
