@@ -127,17 +127,8 @@ class ProductController extends Controller
             $image->storeAs('products', $image->hashName(), 'public');
 
             // delete old image
-            Storage::delete('products' . $product->image, 'public');
-            // Delete old image if it exists
-            // if ($product->image && Storage::exists('products/' . $product->image)) {
-            //     Storage::delete('products/' . $product->image);
-            // }
-            // Storage::delete('products'.$product->image, 'public');
-            // Storage::delete('products/' . $product->image);
-            // Delete old image
-            // if ($product->image && Storage::exists('products/' . $product->image)) {
-            //     Storage::delete('products/' . $product->image);
-            // }
+            // Storage::delete('products' . $product->image, 'public');
+            Storage::disk('public')->delete('products/' . $product->image);
 
 
             // update product with new image
