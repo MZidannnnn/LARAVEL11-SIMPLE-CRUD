@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Add New Products - SantriKoding.com</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    {{-- <script src="https://cdn.ckeditor.com/4.25.0-lts/standard/ckeditor.js"></script> --}}
+
 </head>
 
 <body style="background: lightgray">
@@ -47,8 +47,8 @@
                             </div>
                             <div class="form-group mb-3">
                                 <label class="font-weight-bold">DESCRIPTION</label>
-                                <textarea class="form-control @error('description') is-invalid @enderror" name="description" rows="5"
-                                    placeholder="Masukkan Description Product">{{ old('description') }}</textarea>
+                                <textarea id="description" class="form-control @error('description') is-invalid @enderror" name="description"
+                                    rows="5" placeholder="Masukkan Description Product">{{ old('description') }}</textarea>
 
                                 <!-- error message untuk description -->
                                 @error('description')
@@ -103,9 +103,17 @@ Product">
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
+    {{-- <script src="https://cdn.ckeditor.com/4.22.0/standard/ckeditor.js"></script> --}}
+    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+
+
     <script>
-        CKEDITOR.replace('description');
+        // CKEDITOR.replace('description');
+        ClassicEditor
+            .create(document.querySelector('#description'))
+            .catch(error => {
+                console.error(error);
+            });
     </script>
 </body>
 
